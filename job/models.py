@@ -5,6 +5,11 @@ django model fields:
   - html widget
   - validation
   - db size
+
+relations in django models:
+  - one to one
+  - one to many (ForeignKey)
+  - many to many
 ''' 
 
 JOB_TYPE = {
@@ -20,9 +25,16 @@ class Job(models.Model): # table
   published_at = models.DateTimeField(auto_now=True)
   vacancy = models.IntegerField(default=1)
   salary = models.IntegerField(default=0)
-  # category
+  category = models.ForeignKey('Category', on_delete=models.CASCADE)
   experience = models.IntegerField(default=1)
 
   # like toString in javascript
   def __str__(self):
     return self.title
+
+
+class Category(models.Model):
+  name = models.CharField(max_length=25)
+
+  def __str__(self):
+    return self.name
